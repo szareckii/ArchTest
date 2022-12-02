@@ -6,11 +6,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.zareckii.archtest.R
+import com.zareckii.archtest.data.repository.UserRepositoryImpl
 import com.zareckii.archtest.domain.models.SaveUserNameParam
 import com.zareckii.archtest.domain.usecase.GetUserNameUseCase
 import com.zareckii.archtest.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
+
+    private val userRepository by lazy { UserRepositoryImpl(context = applicationContext) }
+    private val getUserNameUseCase by lazy {  GetUserNameUseCase(userRepository) }
+    private val saveUserNameUseCase by lazy {  SaveUserNameUseCase(userRepository) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,14 +26,10 @@ class MainActivity : AppCompatActivity() {
         val sendButton = findViewById<Button>(R.id.sendButton)
         val receiveButton = findViewById<Button>(R.id.receiveButton)
 
-        val getUserNameUseCase = GetUserNameUseCase()
-        val saveUserNameUseCase = SaveUserNameUseCase()
-
         sendButton.setOnClickListener {
             val text = dataEditView.text.toString()
             val params = SaveUserNameParam(firstName = text, lastName = "Zar")
             val result = saveUserNameUseCase.execute(param = params)
-
             dataTextView.text = "Save result = $result"
         }
 

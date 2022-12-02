@@ -1,10 +1,11 @@
 package com.zareckii.archtest.domain.usecase
 
 import com.zareckii.archtest.domain.models.UserName
+import com.zareckii.archtest.domain.repository.UserRepository
 
-class GetUserNameUseCase() {
+class GetUserNameUseCase(private val userRepository: UserRepository) {
 
     fun execute(): UserName {
-        return UserName(firstName = "Stas", lastName = "Zareckii")
+        return userRepository.getNane()
     }
 }
