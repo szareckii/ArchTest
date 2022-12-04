@@ -14,10 +14,11 @@ import com.zareckii.archtest.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    private val sharedPrefUserStorage by lazy { SharedPrefUserStorage(context = applicationContext) }
-    private val userRepository by lazy { UserRepositoryImpl(userStorage = sharedPrefUserStorage) }
-    private val getUserNameUseCase by lazy {  GetUserNameUseCase(userRepository) }
-    private val saveUserNameUseCase by lazy {  SaveUserNameUseCase(userRepository) }
+    private val userRepository by lazy {
+        UserRepositoryImpl(userStorage = SharedPrefUserStorage(context = applicationContext))
+    }
+    private val getUserNameUseCase by lazy { GetUserNameUseCase(userRepository = userRepository) }
+    private val saveUserNameUseCase by lazy { SaveUserNameUseCase(userRepository = userRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
