@@ -7,13 +7,15 @@ import android.widget.EditText
 import android.widget.TextView
 import com.zareckii.archtest.R
 import com.zareckii.archtest.data.repository.UserRepositoryImpl
+import com.zareckii.archtest.data.storage.sharedpref.SharedPrefUserStorage
 import com.zareckii.archtest.domain.models.SaveUserNameParam
 import com.zareckii.archtest.domain.usecase.GetUserNameUseCase
 import com.zareckii.archtest.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    private val userRepository by lazy { UserRepositoryImpl(context = applicationContext) }
+    private val sharedPrefUserStorage by lazy { SharedPrefUserStorage(context = applicationContext) }
+    private val userRepository by lazy { UserRepositoryImpl(userStorage = sharedPrefUserStorage) }
     private val getUserNameUseCase by lazy {  GetUserNameUseCase(userRepository) }
     private val saveUserNameUseCase by lazy {  SaveUserNameUseCase(userRepository) }
 
