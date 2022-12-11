@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -48,13 +49,9 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
-    // Koin
-    def koin_version = "3.2.2"
-    implementation "io.insert-koin:koin-core:$koin_version"
-    implementation "io.insert-koin:koin-android:$koin_version"
-
-    //testing
-    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
+    implementation 'com.google.dagger:dagger:2.43.2'
+    kapt 'com.google.dagger:dagger-compiler:2.43.2'
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.43.2'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

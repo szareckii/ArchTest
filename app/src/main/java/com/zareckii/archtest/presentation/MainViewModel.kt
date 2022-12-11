@@ -8,9 +8,11 @@ import com.zareckii.archtest.domain.usecase.GetUserNameUseCase
 import com.zareckii.archtest.domain.usecase.SaveUserNameUseCase
 
 class MainViewModel(
-    private val saveUserNameUseCase: SaveUserNameUseCase,
-    private val getUserNameUseCase: GetUserNameUseCase,
-    ) : ViewModel() {
+//    private val saveUserNameUseCase: SaveUserNameUseCase,
+//    private val getUserNameUseCase: GetUserNameUseCase,
+    val saveUserNameUseCase: SaveUserNameUseCase,
+    val getUserNameUseCase: GetUserNameUseCase,
+) : ViewModel() {
 
     private val userLiveMutable = MutableLiveData<String>()
     val userLive: LiveData<String> = userLiveMutable

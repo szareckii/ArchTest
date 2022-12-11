@@ -1,23 +1,20 @@
 package com.zareckii.archtest.app
 
 import android.app.Application
-import com.zareckii.archtest.di.appModule
-import com.zareckii.archtest.di.dataModule
-import com.zareckii.archtest.di.domainModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
+import com.zareckii.archtest.di.AppComponent
+import com.zareckii.archtest.di.AppModule
+import com.zareckii.archtest.di.DaggerAppComponent
 
 class App : Application() {
+
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
-            androidLogger(Level.DEBUG)
-            androidContext(this@App)
-            modules(listOf(appModule, dataModule, domainModule))
-        }
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(context = this))
+            .build()
     }
 }

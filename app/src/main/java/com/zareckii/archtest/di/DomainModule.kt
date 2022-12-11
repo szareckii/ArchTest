@@ -1,18 +1,21 @@
 package com.zareckii.archtest.di
 
+import com.zareckii.archtest.domain.repository.UserRepository
 import com.zareckii.archtest.domain.usecase.GetUserNameUseCase
 import com.zareckii.archtest.domain.usecase.SaveUserNameUseCase
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 
+@Module
+class DomainModule {
 
-val domainModule = module {
-
-    factory<GetUserNameUseCase> {
-        GetUserNameUseCase(userRepository = get())
+    @Provides
+    fun provideGetUserNameUseCase(userRepository: UserRepository) : GetUserNameUseCase {
+        return GetUserNameUseCase(userRepository = userRepository)
     }
 
-    factory<SaveUserNameUseCase> {
-        SaveUserNameUseCase(userRepository = get())
+    @Provides
+    fun provideSaveUserNameUseCase(userRepository: UserRepository) : SaveUserNameUseCase {
+        return SaveUserNameUseCase(userRepository = userRepository)
     }
-
 }

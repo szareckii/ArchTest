@@ -1,19 +1,23 @@
 package com.zareckii.archtest.di
 
+import android.content.Context
 import com.zareckii.archtest.data.repository.UserRepositoryImpl
 import com.zareckii.archtest.data.storage.UserStorage
 import com.zareckii.archtest.data.storage.sharedpref.SharedPrefUserStorage
 import com.zareckii.archtest.domain.repository.UserRepository
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 
-val dataModule = module {
+@Module
+class DataModule {
 
-    single<UserStorage> {
-        SharedPrefUserStorage(context = get())
+    @Provides
+    fun provideUserStorage(context: Context) : UserStorage {
+        return SharedPrefUserStorage(context = context)
     }
 
-    single<UserRepository> {
-        UserRepositoryImpl(userStorage = get())
+    @Provides
+    fun provideUserRepository(userStorage: UserStorage) : UserRepository {
+        return UserRepositoryImpl(userStorage = userStorage)
     }
-
 }
